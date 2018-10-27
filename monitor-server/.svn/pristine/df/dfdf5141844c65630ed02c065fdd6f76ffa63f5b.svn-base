@@ -1,0 +1,26 @@
+package com.anyun100.storage.monitor.metadata_service.service;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MetaDataServiceConfiguration {
+
+	@Bean
+	public ClientStatusService clientStatusService() {
+		ClientStatusService clientStatusService = new ClientStatusServiceImpl();
+		return clientStatusService;
+	}
+	
+	@Bean
+	public MetaDataStatusService metaDataStatusService() {
+		MetaDataStatusService metaDataStatusService = new MetaDataStatusServiceImpl();
+		return metaDataStatusService;
+	}
+	
+	@Bean
+	public SGWStatusService sgwStatusService() {
+		SGWStatusService sgwStatusService = new SGWStatusServiceImpl();
+		return sgwStatusService;
+	}
+}

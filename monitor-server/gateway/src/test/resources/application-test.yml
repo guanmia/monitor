@@ -1,0 +1,48 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+security:
+  sessions: ALWAYS
+server:
+  port: 8888
+  ssl:
+    key-store: keystore.p12
+    key-store-password: 111111
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+spring:
+  session:
+    store-type: redis
+  application:
+    name: gateway-service
+  jpa:
+    open-in-view: true
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: mysql
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://demo.anyun100.com:3306/law_robot_test?useUnicode=true&characterEncoding=utf-8
+    username: xd_guan
+    password: Angang1109                                          
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+zuul:
+  routes:
+    admin:
+      path: /admin/**
+      serviceId: ADMIN
+      sensitive-headers:
+    region-center:
+      path: /region-center/**
+      serviceId: REGION-CENTER
+      sensitive-headers:
+      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9090/eureka/

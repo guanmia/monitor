@@ -1,0 +1,48 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+security:
+  user:
+    role: USER,ADMIN
+spring:
+  session:
+    store-type: redis
+  application: 
+    name: REGION-CENTER-2
+  jpa:
+    open-in-view: true
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: mysql
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.68.40:3306/anyun_storage?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456                                          
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    test-while-idle: true
+    test-on-borrow: true
+server:
+  port: 8084
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9090/eureka/
+region-center:      
+  datasource:
+    platform: mysql
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.68.43:3306/metadata?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456                                          
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    test-while-idle: true
+region-center-id: 2

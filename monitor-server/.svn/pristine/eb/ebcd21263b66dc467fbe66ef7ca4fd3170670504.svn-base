@@ -1,0 +1,8 @@
+mail.protocol=smtp
+mail.host=smtp.263.net
+mail.port=25
+mail.smtp.auth=false
+mail.smtp.starttls.enable=false
+mail.from=me@anyun100.com
+mail.username=guanxd@anyun100.com
+mail.password=Baxx1n3b

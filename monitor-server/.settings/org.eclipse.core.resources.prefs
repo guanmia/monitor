@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+encoding//db/src/main/resources/db/migration/V1.0.09__initial_data.sql=UTF-8
+encoding//gateway/src/main/java/com/anyun100/storage/monitor/gateway/config/OAuth2Configuration.java=UTF-8

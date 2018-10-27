@@ -1,0 +1,20 @@
+CREATE TABLE `region_center` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `region_name` varchar(45) DEFAULT NULL,
+  `server_host_name` varchar(45) DEFAULT NULL,
+  `server_host_ip` varchar(45) DEFAULT NULL,
+  `server_host_port` int(11) DEFAULT NULL,
+  `db_server_host` varchar(45) DEFAULT NULL,
+  `db_server_ip` varchar(45) DEFAULT NULL,
+  `db_server_port` int(11) DEFAULT NULL,
+  `location_id` varchar(32) DEFAULT NULL,
+  `enabled` tinyint(4) NOT NULL DEFAULT '1',
+  `comments` varchar(200) DEFAULT NULL,
+  `created_by` varchar(45) DEFAULT NULL,
+  `created_ts` datetime(6) DEFAULT NULL,
+  `modified_by` varchar(45) DEFAULT NULL,
+  `modified_ts` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `region_center_fk_idx` (`location_id`),
+  CONSTRAINT `region_center_fk` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8

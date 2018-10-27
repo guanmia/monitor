@@ -1,0 +1,57 @@
+By default JMX is automatically accessible locally, so running jconsole locally would detect all your local java apps without port exposure.
+
+To access an app via JMX remotely you have to specify an RMI Registry port. The thing to know is that when connecting, JMX initializes on that port and then establishes a data connection back on a random high port, which is a huge problem if you have a firewall in the middle. ("Hey sysadmins, just open up everything, mkay?").
+
+To force JMX to connect back on the same port as you've established, you have a couple options:
+
+Option 1: Command line
+
+-Dcom.sun.management.jmxremote.port=$JMX_REGISTRY_PORT 
+-Dcom.sun.management.jmxremote.rmi.port=$RMI_SERVER_PORT
+If you're using Spring Boot you can put this in your (appname).conf file that lives alongside your (appname).jar deployment.
+
+Option 2: Tomcat/Tomee configuration
+
+Configure a JmxRemoteLifecycleListener:
+
+Maven Jar:
+
+    <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-catalina-jmx-remote</artifactId>
+        <version>8.5.9</version>
+        <type>jar</type>
+    </dependency>
+Configure your server.xml:
+
+<Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener"
+      rmiRegistryPortPlatform="10001" rmiServerPortPlatform="10002" />
+Option 3: configure programmatically
+
+@Configuration
+public class ConfigureRMI {
+
+    @Value("${jmx.rmi.host:localhost}")
+    private String rmiHost;
+
+    @Value("${jmx.rmi.port:1099}")
+    private Integer rmiPort;
+
+    @Bean
+    public RmiRegistryFactoryBean rmiRegistry() {
+        final RmiRegistryFactoryBean rmiRegistryFactoryBean = new RmiRegistryFactoryBean();
+        rmiRegistryFactoryBean.setPort(rmiPort);
+        rmiRegistryFactoryBean.setAlwaysCreate(true);
+        return rmiRegistryFactoryBean;
+    }
+
+    @Bean
+    @DependsOn("rmiRegistry")
+    public ConnectorServerFactoryBean connectorServerFactoryBean() throws Exception {
+        final ConnectorServerFactoryBean connectorServerFactoryBean = new ConnectorServerFactoryBean();
+        connectorServerFactoryBean.setObjectName("connector:name=rmi");
+        connectorServerFactoryBean.setServiceUrl(String.format("service:jmx:rmi://%s:%s/jndi/rmi://%s:%s/jmxrmi", rmiHost, rmiPort, rmiHost, rmiPort));
+        return connectorServerFactoryBean;
+    }
+}
+The trick, you'll see, is the serviceUrl in which you specify both the jmx:rmi host/port and the jndi:rmi host/port. If you specify both, you won't get the random high "problem".
