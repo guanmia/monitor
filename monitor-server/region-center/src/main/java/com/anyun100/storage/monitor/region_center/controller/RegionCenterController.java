@@ -1,4 +1,4 @@
-package com.anyun100.storage.monitor.region/center.controller;
+package com.anyun100.storage.monitor.region_center.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.anyun100.storage.monitor.client/config/service.service.RegionCenterService;
-import com.anyun100.storage.monitor.metadata/service.service.ClientStatusService;
-import com.anyun100.storage.monitor.metadata/service.service.MetaDataStatusService;
-import com.anyun100.storage.monitor.metadata/service.service.SGWStatusService;
+import com.anyun100.storage.monitor.client_config_service.service.RegionCenterService;
+import com.anyun100.storage.monitor.metadata_service.service.ClientStatusService;
+import com.anyun100.storage.monitor.metadata_service.service.MetaDataStatusService;
+import com.anyun100.storage.monitor.metadata_service.service.SGWStatusService;
 import com.google.common.collect.ImmutableMap;;
 
 
